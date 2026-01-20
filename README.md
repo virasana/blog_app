@@ -6,7 +6,7 @@ This sample project demonstrates some fundamentals of using Ruby on Rails.
 
 ## Notes
 
-[scripts/start_redis](scripts/start_redis) --> use this to start the redis server.  I am using Docker to keep parity with production.  
+[scripts/start_redis.sh](scripts/start_redis.sh) --> use this to start the redis server.  I am using Docker to keep parity with production.  
 
 ## Sidekiq / Redis
 
