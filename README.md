@@ -1,24 +1,21 @@
-# README
+# BLOG APP - Ruby on Rails
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Overview
 
-Things you may want to cover:
+This sample project demonstrates some fundamentals of using Ruby on Rails.
 
-* Ruby version
+## Notes
 
-* System dependencies
+[scripts/start_redis](scripts/start_redis) --> use this to start the redis server.  I am using Docker to keep parity with production.  
 
-* Configuration
+## Sidekiq / Redis
 
-* Database creation
+Redis will be utilised by sidekiq to persist jobs.
 
-* Database initialization
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
 
-* ...
+
+
+
