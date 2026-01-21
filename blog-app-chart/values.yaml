@@ -1,0 +1,12 @@
+rails:
+  image: blog_app:latest
+  replicas: 1
+  port: 3000
+
+sidekiq:
+  image: blog_app_sidekiq:latest
+  replicas: 1
+
+redis:
+  image: redis:latest
+  port: 6379

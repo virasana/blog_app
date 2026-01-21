@@ -12,6 +12,21 @@ This sample project demonstrates some fundamentals of using Ruby on Rails.
 
 Redis will be utilised by sidekiq to persist jobs.
 
+## Deploy to Kubernetes
+
+### Dev Environment
+
+* Run the following script to deploy the solution to your local Kubernetes cluster:
+
+```bash
+scripts/k8s-up.sh
+```
+
+
+
+
+
+
 
 
 

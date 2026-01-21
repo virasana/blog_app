@@ -1,2 +1,3 @@
 [tools]
+helm = "latest"
 ruby = "4.0.1"
