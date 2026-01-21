@@ -10,7 +10,7 @@ This sample project demonstrates some fundamentals of using Ruby on Rails.
 
 ## Sidekiq / Redis
 
-Redis will be utilised by sidekiq to persist jobs.
+Redis will be utilised by sidekiq as an event queue.
 
 ## Deploy to Kubernetes
 
