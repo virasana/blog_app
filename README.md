@@ -39,9 +39,6 @@ This sample project demonstrates some of the fundamentals that I have learned ab
            └───────────────────┘
 
 
-
-
-
 ## Application Overview
 
 This Ruby on Rails application demonstrates a simple **blog platform** with background job processing:
@@ -91,6 +88,19 @@ This setup demonstrates how to build a **scalable, containerized Rails applicati
 - Mapping of process → job → message in Redis  
 - Distributed coordination using Redis locks  
 
+## Redis as a Queue in Sidekiq
+
+Redis acts as a **fast in-memory queue**, but it is **just a storage layer**—it does not process jobs itself. Sidekiq workers read jobs from Redis and execute them, coordinating work across multiple Sidekiq instances.
+
+### Key behaviors
+
+- **Job lifecycle:** Jobs are pushed to Redis queues, picked up by Sidekiq workers, and marked as **in progress** while being processed.  
+- **Heartbeat:** Workers periodically update a heartbeat in Redis to signal they are alive; if a worker dies, jobs can be retried.  
+- **Reaper:** A background process monitors jobs stuck in progress due to worker failure and moves them back to the queue for retry.  
+- **Coordination:** Multiple Sidekiq instances can safely pull jobs from the same Redis queues because Redis operations like `RPOP` are atomic.  
+
+**Summary:** Redis holds the jobs and tracks their state, while Sidekiq handles execution, retries, and coordination among workers.
+
 ## Development & Deployment
 - Using Docker for Rails app and Redis  
 - Running Sidekiq separately from Rails server  
@@ -102,11 +112,34 @@ This setup demonstrates how to build a **scalable, containerized Rails applicati
 ## Miscellaneous Rails Features
 - Rails logging and log levels (`debug`, `info`)  
 - Rails asset precompilation  
-- Symbols in Ruby (`:default`) and their purpose  
+- Symbols in Ruby (`:default`) and their purpose 
+
+
 
 ## Deploy to Kubernetes
 
+### Prerequisites
+
+* Access to a Kubernetes cluster.  I use [kind](https://kind.sigs.k8s.io/)
+* install ruby.  I use:
+
+```bash
+ ruby 4.0.1 (2026-01-13 revision e04267a14b) +PRISM [x86_64-linux]
+ ```
+   I installed ruby with [mise](https://mise.jdx.dev/)
+
+```bash
+# from the repo root directory
+mise install
+```
+
 ### Dev Environment
+
+* Build docker images
+
+```bash
+scripts/docker-build.sh
+```
 
 * Run the following script to deploy the solution to your local Kubernetes cluster:
 
