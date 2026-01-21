@@ -135,7 +135,7 @@ mise install
 
 ### Dev Environment
 
-* Build docker images
+* Build docker images (note that this can be skipped if you just run k8s-up.sh, below)
 
 ```bash
 scripts/docker-build.sh
@@ -144,6 +144,7 @@ scripts/docker-build.sh
 * Run the following script to deploy the solution to your local Kubernetes cluster:
 
 ```bash
+# ASSUMES THAT YOU ARE RUNNING kind
 scripts/k8s-up.sh
 ```
 
