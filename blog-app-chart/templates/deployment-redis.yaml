@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog-app-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog-app-redis
+  template:
+    metadata:
+      labels:
+        app: blog-app-redis
+    spec:
+      containers:
+        - name: redis
+          image: {{ .Values.redis.image }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: {{ .Values.redis.port }}

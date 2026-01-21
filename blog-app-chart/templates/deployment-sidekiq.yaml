@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog-app-sidekiq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog-app-sidekiq
+  template:
+    metadata:
+      labels:
+        app: blog-app-sidekiq
+    spec:
+      containers:
+        - name: sidekiq
+          image: blog_app_sidekiq:latest
+          imagePullPolicy: IfNotPresent
+          command: ["bundle", "exec", "sidekiq"]
+          env:
+            - name: RAILS_ENV
+              value: "production"
+            - name: SECRET_KEY_BASE
+              valueFrom:
+                secretKeyRef:
+                  name: rails-secret
+                  key: SECRET_KEY_BASE
+            - name: REDIS_URL
+              value: "redis://blog-app-redis:6379/0"

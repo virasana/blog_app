@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog-app-rails
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog-app-rails
+  template:
+    metadata:
+      labels:
+        app: blog-app-rails
+    spec:
+      containers:
+        - name: rails
+          image: blog_app:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          command: ["bin/rails", "server", "-b", "0.0.0.0"]
+          env:
+            - name: RAILS_ENV
+              value: "production"
+            - name: SECRET_KEY_BASE
+              valueFrom:
+                secretKeyRef:
+                  name: rails-secret
+                  key: SECRET_KEY_BASE
+            - name: REDIS_URL
+              value: "redis://blog-app-redis:6379/0"
+            - name: PORT
+              value: "3000"
